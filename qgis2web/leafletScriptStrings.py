@@ -478,7 +478,7 @@ def getVTLabels(vtLabels):
 
 
 def endHTMLscript(wfsLayers, layerSearch, labelCode, labels, searchLayer,
-                  useHeat, useRaster, labelsList, mapUnitLayers):
+                  useHeat, useHeatmapJs, useRaster, labelsList, mapUnitLayers):
     if labels == "":
         endHTML = ""
     else:
@@ -523,6 +523,17 @@ def endHTMLscript(wfsLayers, layerSearch, labelCode, labels, searchLayer,
               feature.properties[weight]
             ];
           });
+        }"""
+    if useHeatmapJs:
+        endHTML += """
+        function geoJson2heatmapJs(geojson, weight) {
+            return geojson.features.map(function(feature) {
+                return {
+                    lat: feature.geometry.coordinates[1],
+                    lng: feature.geometry.coordinates[0],
+                    weight: feature.properties[weight]
+                };
+            });
         }"""
     if useRaster:
         endHTML += """

@@ -161,6 +161,7 @@ class LeafletWriter(Writer):
         vtStyles = {}
         useMultiStyle = False
         useHeat = False
+        useHeatmapJs = False
         useVT = False
         useShapes = False
         useOSMB = False
@@ -254,6 +255,7 @@ class LeafletWriter(Writer):
                  useMapUnits,
                  useMultiStyle,
                  useHeat,
+                 useHeatmapJs,
                  useVT,
                  useShapes,
                  useOSMB) = writeVectorLayer(layer, safeLayerName,
@@ -265,7 +267,7 @@ class LeafletWriter(Writer):
                                              legends, new_src, canvas, count,
                                              restrictToExtent, extent,
                                              feedback, labelCode, vtLabels,
-                                             vtStyles, useMultiStyle, useHeat,
+                                             vtStyles, useMultiStyle, useHeat, useHeatmapJs,
                                              useVT, useShapes, useOSMB)
                 if useMapUnits:
                     mapUnitLayers.append(safeLayerName)
@@ -352,14 +354,14 @@ class LeafletWriter(Writer):
                         labelList.append("layer_%s" % safeLayerName)
         labelsList = ",".join(labelList)
         end += endHTMLscript(wfsLayers, layerSearch, labelCode,
-                             labelVisibility, searchLayer, useHeat, useRaster,
+                             labelVisibility, searchLayer, useHeat, useHeatmapJs, useRaster,
                              labelsList, mapUnitLayers)
         new_src += end
         try:
             writeHTMLstart(outputIndex, title, cluster, addressSearch,
                            measure, matchCRS, layerSearch, canvas,
                            mapLibLocation, locate, new_src, template, feedback,
-                           debugLibs, useMultiStyle, useHeat, useShapes,
+                           debugLibs, useMultiStyle, useHeat, useHeatmapJs, useShapes,
                            useOSMB, useWMS, useWMTS, useVT)
         except Exception as e:
             QgsMessageLog.logMessage(traceback.format_exc(), "qgis2web",

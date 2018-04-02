@@ -105,7 +105,7 @@ def writeFoldersAndFiles(pluginDir, feedback, outputProjectFileName,
 def writeHTMLstart(outputIndex, webpage_name, cluster_set, address, measure,
                    matchCRS, layerSearch, canvas, mapLibLocation, locate,
                    qgis2webJS, template, feedback, debugLibs, useMultiStyle,
-                   useHeat, useShapes, useOSMB, useWMS, useWMTS, useVT):
+                   useHeat, useHeatmapJs, useShapes, useOSMB, useWMS, useWMTS, useVT):
     useCluster = False
     for cluster in cluster_set:
         if cluster:
@@ -139,6 +139,10 @@ def writeHTMLstart(outputIndex, webpage_name, cluster_set, address, measure,
     if useHeat:
         jsAddress += """
         <script src="js/leaflet-heat.js"></script>"""
+    if useHeatmapJs:
+        jsAddress += """
+        <script src="js/heatmap.js"></script>
+        <script src="js/leaflet-heatmap.js"></script>"""
     if useVT:
         jsAddress += """
         <script src="js/Leaflet.VectorGrid.js"></script>"""

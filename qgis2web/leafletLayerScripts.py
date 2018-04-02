@@ -36,7 +36,7 @@ def writeVectorLayer(layer, safeLayerName, usedFields, highlight,
                      popupsOnHover, popup, outputProjectFileName, wfsLayers,
                      cluster, visible, json, legends, new_src, canvas, zIndex,
                      restrictToExtent, extent, feedback, labelCode, vtLabels,
-                     vtStyles, useMultiStyle, useHeat, useVT, useShapes,
+                     vtStyles, useMultiStyle, useHeat, useHeatmapJs, useVT, useShapes,
                      useOSMB):
     vts = layer.customProperty("VectorTilesReader/vector_tile_source")
     feedback.showFeedback("Writing %s as JSON..." % layer.name())
@@ -85,6 +85,7 @@ def writeVectorLayer(layer, safeLayerName, usedFields, highlight,
         osmb.set(json_{sln});""".format(shadows=shadows, sln=safeLayerName)
     elif isinstance(renderer, QgsHeatmapRenderer):
         useHeat = True
+        # useHeatmapJs = True
         new_obj = heatmapLayer(layer, safeLayerName, renderer)
     elif vts is not None:
         useVT = True
@@ -159,7 +160,7 @@ def writeVectorLayer(layer, safeLayerName, usedFields, highlight,
         cluster_""" + safeLayerName + """.addTo(map);"""
     feedback.completeStep()
     return (new_src, legends, wfsLayers, labelCode, vtLabels, vtStyles,
-            useMapUnits, useMultiStyle, useHeat, useVT, useShapes, useOSMB)
+            useMapUnits, useMultiStyle, useHeat, useHeatmapJs, useVT, useShapes, useOSMB)
 
 
 def getLabels(layer, safeLayerName, outputProjectFileName, vts, vtLabels):
